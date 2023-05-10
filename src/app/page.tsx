@@ -183,7 +183,7 @@ export default async function Home() {
 // }
 
 
-export async function getData() {
+ async function getData() {
 
   const defaultCity = 'Tokyo'
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`

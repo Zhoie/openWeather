@@ -7,7 +7,7 @@ import { unsplashType } from "@/libs/unsplashType"
 import { FaSearch } from "react-icons/fa"
 import { toast } from "react-hot-toast"
 
-import { useEffect, useState } from "react"
+// import { useEffect, useState } from "react"
 
 const styles = {
   searchContainer: ' flex justify-center w-full mt-4 my-2 h-12 items-center',
@@ -31,7 +31,7 @@ export default async function Home() {
 
   //weather data
   // const [weatherData, setweatherData] = useState<weatherType>(data)
-  const [search, setSearch] = useState('null')
+  // const [search, setSearch] = useState('null')
 //   const [loading, setLoading] = useState(false)
 
 

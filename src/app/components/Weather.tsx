@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { getWeatherData } from '../api/search/route'
+import { getWeatherData } from '../api/search/weatherData'
+
 import { weatherType } from '@/types/weatherType'
 import { FaSearch } from 'react-icons/fa';
 

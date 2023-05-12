@@ -1,6 +1,5 @@
 
 import Head from "next/head"
-import { toast } from "react-hot-toast"
 import Weather from "./components/Weather";
 
 const styles = {

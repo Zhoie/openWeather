@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { getImageData } from '../api/search/imageData'
 import { unsplashType } from '@/types/unsplashType'
@@ -13,31 +13,34 @@ import { unsplashType } from '@/types/unsplashType'
 export default function CityImage({ city }: { city?: string }) {
 
     const [image, setImage] = useState('')
-    const [init, setInit] = useState(true)
+    const isInitialRender = useRef(true)
     // const [count, setCount] = useState(0)
     const [imageSize, setImageSize] = useState({ width: 400, height: 400 } as { width: number, height: number } )
     // const [isLoding, setLoding] = useState(false)
 
 
-    const handleImage = async (city: string) => {
-
-        const res: unsplashType = await getImageData(city || 'tokyo')
-        const length = res.results.length
-        const random = Math.floor(Math.random() * length)
-        const image = res.results[random].urls.regular
-        const width = res.results[random].width
-        const height = res.results[random].height
-        setImageSize({ width, height })
-        setImage(image)
-        console.log(image)
-
-    }
-   
     useEffect(() => {
-        if (!init) {
-            handleImage(city || 'tokyo')
-        } else {
-            setInit(false)
+        if (isInitialRender.current) {
+            isInitialRender.current = false
+            return
+        }
+
+        let cancelled = false
+
+        const loadImage = async () => {
+            const res: unsplashType = await getImageData(city || 'tokyo')
+            if (cancelled || res.results.length === 0) return
+
+            const random = Math.floor(Math.random() * res.results.length)
+            const result = res.results[random]
+            setImageSize({ width: result.width, height: result.height })
+            setImage(result.urls.regular)
+        }
+
+        void loadImage()
+
+        return () => {
+            cancelled = true
         }
     }, [city])
 
